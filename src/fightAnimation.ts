@@ -61,14 +61,15 @@ async function showNextFrame(editor: vscode.TextEditor) {
     }
 
     const baseCss = `
-      position: relative; /* Changed from absolute to fixed */
-      right: 0;
-      top: -5rem;
-      z-index: 1;
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 9999;
       display: block;
       pointer-events: none;
       border-radius: 0.5rem;
       filter: contrast(1.2) brightness(1.5);
+      box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.35);
   `
     animationDecoration = vscode.window.createTextEditorDecorationType({
       after: {
@@ -120,12 +121,18 @@ function stopAnimation() {
 
 function incrementComboCount() {
   comboCount++
-  showNextFrame(vscode.window.activeTextEditor!)
+  const editor = vscode.window.activeTextEditor
+  if (!editor) return
+
+  showNextFrame(editor)
 }
 
 function resetComboCount() {
   comboCount = 0
-  showNextFrame(vscode.window.activeTextEditor!)
+  const editor = vscode.window.activeTextEditor
+  if (!editor) return
+
+  showNextFrame(editor)
 }
 
 function getFrameUrl(frameNumber: number, extensionPath: string): string {
