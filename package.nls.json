@@ -1,0 +1,5 @@
+{
+  "config.title": "VSCode Funny",
+  "config.enableFightAnimation.description": "Enable kunkun animation when typing",
+  "config.fightAnimationSize.description": "Size of the kunkun animation in pixels"
+}
