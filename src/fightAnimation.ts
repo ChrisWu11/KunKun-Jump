@@ -45,13 +45,12 @@ function updateAnimation(uri: vscode.Uri) {
   isAnimating = true
   showNextFrame(editor)
 }
-
 async function showNextFrame(editor: vscode.TextEditor) {
   if (!isAnimating) return
 
-  const animationSize = vscode.workspace
-    .getConfiguration('vscode-kunkun')
-    .get('fightAnimationSize') as number
+  const config = vscode.workspace.getConfiguration('vscode-kunkun')
+  const animationSize = config.get('fightAnimationSize') as number
+  const rightOffset = config.get('fightAnimationRightOffset') as number
 
   const frameUrl = frameCache[currentFrame]
 
@@ -61,13 +60,13 @@ async function showNextFrame(editor: vscode.TextEditor) {
     }
 
     const baseCss = `
-      position: relative; /* Changed from absolute to fixed */
-      right: 0;
-      top: -5rem;
-      z-index: 1;
+      position: absolute;
+      top: 2rem;
+      left: 100vw;
+      transform: translateX(-${animationSize + rightOffset}px);
+      z-index: 9999;
       display: block;
       pointer-events: none;
-      border-radius: 0.5rem;
       filter: contrast(1.2) brightness(1.5);
   `
     animationDecoration = vscode.window.createTextEditorDecorationType({
@@ -93,8 +92,8 @@ async function showNextFrame(editor: vscode.TextEditor) {
       rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
     })
 
-    const lastLine = editor.document.lineAt(editor.document.lineCount - 1)
-    const range = new vscode.Range(lastLine.range.end, lastLine.range.end)
+    const firstLine = editor.document.lineAt(0)
+    const range = new vscode.Range(firstLine.range.start, firstLine.range.start)
 
     editor.setDecorations(animationDecoration, [{ range }])
 
@@ -120,12 +119,18 @@ function stopAnimation() {
 
 function incrementComboCount() {
   comboCount++
-  showNextFrame(vscode.window.activeTextEditor!)
+  const editor = vscode.window.activeTextEditor
+  if (!editor) return
+
+  showNextFrame(editor)
 }
 
 function resetComboCount() {
   comboCount = 0
-  showNextFrame(vscode.window.activeTextEditor!)
+  const editor = vscode.window.activeTextEditor
+  if (!editor) return
+
+  showNextFrame(editor)
 }
 
 function getFrameUrl(frameNumber: number, extensionPath: string): string {

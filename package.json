@@ -51,6 +51,11 @@
           "type": "number",
           "default": 200,
           "markdownDescription": "%config.fightAnimationSize.description%"
+        },
+        "vscode-kunkun.fightAnimationRightOffset": {
+          "type": "number",
+          "default": 16,
+          "markdownDescription": "%config.fightAnimationRightOffset.description%"
         }
       }
     }
