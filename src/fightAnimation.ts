@@ -61,15 +61,13 @@ async function showNextFrame(editor: vscode.TextEditor) {
     }
 
     const baseCss = `
-      position: fixed;
-      top: 1rem;
+      position: absolute;
+      top: 0;
       right: 1rem;
       z-index: 9999;
       display: block;
       pointer-events: none;
-      border-radius: 0.5rem;
       filter: contrast(1.2) brightness(1.5);
-      box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.35);
   `
     animationDecoration = vscode.window.createTextEditorDecorationType({
       after: {
@@ -94,8 +92,8 @@ async function showNextFrame(editor: vscode.TextEditor) {
       rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
     })
 
-    const lastLine = editor.document.lineAt(editor.document.lineCount - 1)
-    const range = new vscode.Range(lastLine.range.end, lastLine.range.end)
+    const firstLine = editor.document.lineAt(0)
+    const range = new vscode.Range(firstLine.range.start, firstLine.range.start)
 
     editor.setDecorations(animationDecoration, [{ range }])
 
