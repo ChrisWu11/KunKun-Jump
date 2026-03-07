@@ -1,6 +1,6 @@
 {
-  "config.title": "VSCode Funny",
-  "config.enableFightAnimation.description": "Enable kunkun animation when typing",
-  "config.fightAnimationSize.description": "Size of the kunkun animation in pixels",
-  "config.fightAnimationRightOffset.description": "Distance from the right edge in pixels"
+  "config.title": "VSCode Funny Settings",
+  "config.enableFightAnimation.description": "Enable the KunKun animation while typing.",
+  "config.fightAnimationSize.description": "Set the KunKun animation size in pixels.",
+  "config.fightAnimationRightOffset.description": "Set the distance (in pixels) from the right edge of the editor viewport."
 }
