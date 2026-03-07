@@ -29,6 +29,17 @@ export async function activateFightAnimation(context: vscode.ExtensionContext) {
       incrementComboCount()
     }
   })
+
+  // 监听编辑器可见区域变化（如侧边栏/面板展开收起）并刷新装饰位置
+  vscode.window.onDidChangeTextEditorVisibleRanges(event => {
+    if (!isAnimating) return
+    refreshAnimationPosition(event.textEditor)
+  })
+
+  vscode.window.onDidChangeActiveTextEditor(editor => {
+    if (!isAnimating || !editor) return
+    refreshAnimationPosition(editor)
+  })
 }
 
 async function preloadFrames(extensionPath: string) {
@@ -44,6 +55,14 @@ function updateAnimation(uri: vscode.Uri) {
 
   isAnimating = true
   showNextFrame(editor)
+}
+
+function refreshAnimationPosition(editor: vscode.TextEditor) {
+  if (!animationDecoration) return
+
+  const firstLine = editor.document.lineAt(0)
+  const range = new vscode.Range(firstLine.range.start, firstLine.range.start)
+  editor.setDecorations(animationDecoration, [{ range }])
 }
 
 async function showNextFrame(editor: vscode.TextEditor) {
