@@ -64,7 +64,8 @@ async function showNextFrame(editor: vscode.TextEditor) {
     const baseCss = `
       position: absolute;
       top: 0;
-      left: calc(100vw - ${animationSize + rightOffset}px);
+      left: 100vw;
+      transform: translateX(-${animationSize + rightOffset}px);
       z-index: 9999;
       display: block;
       pointer-events: none;
