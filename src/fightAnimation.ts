@@ -60,10 +60,11 @@ async function showNextFrame(editor: vscode.TextEditor) {
       animationDecoration.dispose()
     }
 
+    const rightOffset = 16
     const baseCss = `
       position: absolute;
       top: 0;
-      right: 1rem;
+      left: calc(100vw - ${animationSize + rightOffset}px);
       z-index: 9999;
       display: block;
       pointer-events: none;
