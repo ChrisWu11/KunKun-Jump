@@ -1,6 +1,6 @@
-# VSCode Funny (KunKun Animation)
+# KunKun Animition
 
-VSCode Funny is a lightweight extension that adds a playful KunKun animation effect while you type in the editor.
+KunKun Animition is a lightweight extension that adds a playful KunKun animation effect while you type in the editor.
 
 ## Features
 
