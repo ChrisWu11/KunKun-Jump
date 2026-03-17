@@ -6,7 +6,7 @@ import { initializeLocalization } from './i18n'
 
 export const activate = async (context: vscode.ExtensionContext) => {
   try {
-    console.log('"VSCode Funny" is now active!')
+    console.log('"KunKun Animition" is now active!')
 
     await initializeLocalization()
 
